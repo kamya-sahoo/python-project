@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyMate — Smart Study Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">S</span><span>Study<span
+            class="brand-accent">Mate</span></span></a>
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav>
+        <button class="nav-link active" data-view="dashboard"><span>▦</span> Overview</button>
+        <button class="nav-link" data-view="subjects"><span>▤</span> My subjects</button>
+        <button class="nav-link" data-view="tasks"><span>✓</span> Tasks & assignments</button>
+        <button class="nav-link" data-view="timetable"><span>◷</span> Timetable</button>
+        <button class="nav-link" data-view="reports"><span>▥</span> Progress reports</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="tip-card">
+          <div class="tip-icon">✦</div><b>Small steps add up.</b>
+          <p>Stay consistent today and your future self will thank you.</p>
+        </div>
+        <div class="profile">
+          <div class="avatar">S</div>
+          <div><b>Student</b><small>Personal workspace</small></div><span class="dots">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow" id="todayLabel">YOUR LEARNING SPACE</div>
+          <h1 id="pageTitle">Good afternoon 👋</h1>
+        </div>
+        <div class="top-actions"><button class="icon-btn" id="notificationBtn"
+            title="Reminders">♧<i></i></button><button class="primary-btn" id="quickAdd">＋ Add new task</button></div>
+      </header>
+
+      <section class="view active" id="dashboardView">
+        <div class="welcome-banner">
+          <div><span class="banner-kicker">TUESDAY MOTIVATION</span>
+            <h2>Make today<br>count<span>.</span></h2>
+            <p>A little progress each day adds up to big results.</p><button class="banner-btn"
+              data-goto="timetable">View my schedule <span>→</span></button>
+          </div>
+          <div class="banner-art">
+            <div class="sun"></div>
+            <div class="book book-one"></div>
+            <div class="book book-two"></div>
+            <div class="plant">✳</div>
+            <div class="art-note">FOCUS<br>ON YOU</div>
+          </div>
+          <div class="banner-orb"></div>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h3>Your overview</h3>
+            <p>Here’s what your learning looks like today.</p>
+          </div><span class="date-pill" id="datePill"></span>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top"><span>Tasks completed</span><span class="stat-icon lavender">✓</span></div><strong
+              id="completedStat">0<span>/0</span></strong><small><span class="green-text">●</span> Keep up the
+              momentum</small>
+            <div class="mini-progress"><i id="taskProgress"></i></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Study time today</span><span class="stat-icon peach">◷</span></div><strong
+              id="studyTimeStat">0<span>h</span></strong><small>Logged focus time</small>
+            <div class="mini-progress peach-bar"><i id="timeProgress"></i></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Active subjects</span><span class="stat-icon mint">▤</span></div><strong
+              id="subjectStat">0</strong><small>Subjects in your plan</small>
+            <div class="subject-dots" id="subjectDots"></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span>Next exam</span><span class="stat-icon blue">⌁</span></div><strong
+              id="examStat">—</strong><small id="examName">Add an exam date</small>
+            <div class="exam-line">Days to go <b id="examDays">—</b></div>
+          </article>
+        </div>
+
+        <div class="content-grid">
+          <article class="panel schedule-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Today’s study plan</h3>
+                <p>Your sessions for the day</p>
+              </div><button class="text-btn" data-goto="timetable">See timetable →</button>
+            </div>
+            <div id="todaySchedule" class="schedule-list"></div>
+          </article>
+          <article class="panel focus-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Focus room</h3>
+                <p>One session at a time</p>
+              </div><span class="live-dot">● LIVE</span>
+            </div>
+            <div class="timer-ring" id="timerRing">
+              <div><strong id="timerDisplay">25:00</strong><small id="timerMode">FOCUS SESSION</small></div>
+            </div>
+            <div class="timer-controls"><button class="primary-btn" id="timerStart">Start focus</button><button
+                class="soft-btn" id="timerReset">↺</button></div>
+            <div class="timer-modes"><button class="mode active" data-minutes="25" data-mode="focus">Focus
+                25m</button><button class="mode" data-minutes="5" data-mode="short">Short break</button><button
+                class="mode" data-minutes="15" data-mode="long">Long break</button></div>
+          </article>
+        </div>
+
+        <div class="content-grid lower-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Upcoming deadlines</h3>
+                <p>Don’t let these slip by</p>
+              </div><button class="text-btn" data-goto="tasks">View all →</button>
+            </div>
+            <div id="upcomingTasks" class="deadline-list"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Subject progress</h3>
+                <p>Your learning at a glance</p>
+              </div>
+            </div>
+            <div id="dashboardSubjects" class="progress-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="subjectsView">
+        <div class="section-heading">
+          <div>
+            <h3>My subjects</h3>
+            <p>Organise your learning, one topic at a time.</p>
+          </div><button class="primary-btn" id="addSubjectBtn">＋ Add subject</button>
+        </div>
+        <div id="subjectGrid" class="subject-grid"></div>
+      </section>
+
+      <section class="view" id="tasksView">
+        <div class="section-heading">
+          <div>
+            <h3>Tasks & assignments</h3>
+            <p>Keep every deadline in sight.</p>
+          </div><button class="primary-btn" id="addTaskBtn">＋ Add task</button>
+        </div>
+        <div class="filter-row"><button class="filter active" data-filter="all">All tasks</button><button class="filter"
+            data-filter="pending">Pending</button><button class="filter" data-filter="done">Completed</button></div>
+        <div class="panel task-table-panel">
+          <div id="taskList"></div>
+        </div>
+      </section>
+
+      <section class="view" id="timetableView">
+        <div class="section-heading">
+          <div>
+            <h3>Smart timetable</h3>
+            <p>A balanced plan makes a productive week.</p>
+          </div><button class="primary-btn" id="addSessionBtn">＋ Add session</button>
+        </div>
+        <div class="panel">
+          <div class="week-header">
+            <div><b>This week</b><small>Plan your study blocks</small></div><span class="date-pill">WEEKLY PLAN</span>
+          </div>
+          <div id="weekGrid" class="week-grid"></div>
+        </div>
+      </section>
+
+      <section class="view" id="reportsView">
+        <div class="section-heading">
+          <div>
+            <h3>Progress reports</h3>
+            <p>See the effort behind your progress.</p>
+          </div><span class="date-pill">LAST 7 DAYS</span>
+        </div>
+        <div class="report-grid">
+          <article class="panel chart-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Study hours</h3>
+                <p>Your weekly focus time</p>
+              </div>
+            </div><canvas id="hoursChart"></canvas>
+          </article>
+          <article class="panel chart-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Task completion</h3>
+                <p>Completed vs pending</p>
+              </div>
+            </div><canvas id="taskChart"></canvas>
+            <div class="chart-legend"><span>● Completed</span><span>● Pending</span></div>
+          </article>
+        </div>
+        <div class="stats-grid report-stats">
+          <article class="stat-card"><span>Total study hours</span><strong id="totalHours">0h</strong><small>This
+              week</small></article>
+          <article class="stat-card"><span>Tasks completed</span><strong id="reportCompleted">0</strong><small>All-time
+              progress</small></article>
+          <article class="stat-card"><span>Topics covered</span><strong id="topicsCovered">0</strong><small>Across all
+              subjects</small></article>
+          <article class="stat-card"><span>Completion rate</span><strong id="completionRate">0%</strong><small>Tasks
+              completed</small></article>
+        </div>
+      </section>
+      <footer>Made for your next big achievement <span>✦</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <div><span class="eyebrow">STUDYMATE WORKSPACE</span>
+          <h3 id="modalTitle">Add new item</h3>
+        </div><button class="close-btn" id="modalClose">×</button>
+      </div>
+      <form id="itemForm">
+        <div id="modalFields"></div>
+        <div class="modal-actions"><button type="button" class="soft-btn" id="cancelModal">Cancel</button><button
+            class="primary-btn" type="submit">Save details</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+
+</html>
